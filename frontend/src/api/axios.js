@@ -11,7 +11,15 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access');
-    if (token) {
+    
+    // Define public endpoints that don't need the token
+    const isPublicEndpoint = config.url && (
+      config.url.endsWith('register/') || 
+      config.url.endsWith('token/') ||
+      config.url.endsWith('token/refresh/')
+    );
+
+    if (token && !isPublicEndpoint) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;

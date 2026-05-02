@@ -32,10 +32,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         if login_input and password:
             if '@' in login_input:
-                try:
-                    user = User.objects.get(email=login_input)
+                user = User.objects.filter(email__iexact=login_input).first()
+                if user:
                     attrs['username'] = user.username
-                except User.DoesNotExist:
-                    pass
         
         return super().validate(attrs)

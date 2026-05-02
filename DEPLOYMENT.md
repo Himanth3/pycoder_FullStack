@@ -69,7 +69,7 @@ Expand the **Environment Variables** section and add:
 
 | Key | Value | Description |
 | :--- | :--- | :--- |
-| `VITE_API_URL` | `https://[YOUR_RENDER_URL].onrender.com/api/` | **Paste your Render Backend URL here.** <br>⚠️ **Must end with `/api/`** |
+| `VITE_API_URL` | `https://pycoder-backend.onrender.com/api/` | **Paste your Render Backend URL here.** <br>⚠️ **Must end with `/api/`** |
 
 ### Step 4: Deploy
 1.  Click **Deploy**.
@@ -87,7 +87,7 @@ Now that you have your live Frontend URL, you need to tell the Backend to trust 
 2.  Go to **Environment Variables**.
 3.  Edit `CORS_ALLOWED_ORIGINS`.
 4.  **Replace** the existing value (or append with a comma) with your new Vercel URL.
-    *   **Value:** `https://pycoder-frontend.vercel.app` (No trailing slash)
+    *   **Value:** `https://pycoder-full-stack.vercel.app` (**CRITICAL:** Must NOT have a trailing `/`)
 5.  **Save Changes**. Render will automatically redeploy your backend.
 
 ---
