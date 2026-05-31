@@ -6,7 +6,7 @@ import axios from 'axios';
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL
     ? `${import.meta.env.VITE_API_URL}/api/`
-    : 'https://codeverse-backend-l122.onrender.com/api/',
+    : 'http://localhost:8080/api/',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -15,13 +15,12 @@ const api = axios.create({
 // Request interceptor — attach JWT token to protected requests
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token'); // Spring Boot returns 'token'
+    const token = localStorage.getItem('access'); // Use 'access' instead of 'token'
 
     // Spring Boot public endpoints (no auth required)
     const isPublicEndpoint = config.url && (
-      config.url.includes('auth/login') ||
-      config.url.includes('auth/signup') ||
-      config.url.includes('auth/register')
+      config.url.includes('token/') ||
+      config.url.includes('register/')
     );
 
     if (token && !isPublicEndpoint) {
@@ -39,7 +38,8 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
       localStorage.removeItem('user');
       window.location.href = '/login';
     }

@@ -1,5 +1,6 @@
 package com.pycoder.backend.security;
 
+import com.pycoder.backend.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -45,6 +46,12 @@ public class JwtUtil {
 
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
+    }
+
+    public String generateToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", user.getEmail());
+        return createToken(claims, user.getUsername(), 1000 * 60 * 60); // 1 hour access token
     }
 
     public String generateToken(UserDetails userDetails) {
