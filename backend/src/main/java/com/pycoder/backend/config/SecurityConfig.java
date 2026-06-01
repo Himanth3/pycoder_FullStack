@@ -39,9 +39,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/api/health", "/api/auth/**", "/api/register/", "/api/token/",
-                                "/api/token/refresh/")
+                                "/api/token/refresh/", "/h2-console/**")
                         .permitAll()
                         .anyRequest().authenticated())
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
