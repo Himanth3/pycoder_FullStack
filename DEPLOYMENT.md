@@ -1,5 +1,28 @@
 # CodeVerse — Deployment Guide 🚀🌌
 
+### Render Deployment (Blueprints)
+
+This project is ready to be deployed on Render using the included `render.yaml` Blueprint.
+
+#### Steps to Deploy:
+1.  **Push your code** to a GitHub repository.
+2.  **Go to Render Dashboard** and click **New > Blueprint**.
+3.  **Connect your repository**.
+4.  Render will automatically detect the `render.yaml` file and set up:
+    *   A managed **PostgreSQL** database.
+    *   A **Web Service** for the Spring Boot backend.
+5.  **Environment Variables**: The Blueprint automatically links the database to the backend. You can add additional variables like `JWT_SECRET` in the Render dashboard if needed.
+
+#### Manual Configuration (if not using Blueprints):
+- **Build Command**: `docker build -t backend -f backend/Dockerfile backend` (if running locally/manually)
+- **Start Command**: `java -jar app.jar` (handled by Dockerfile)
+- **Database**: Add a PostgreSQL instance and set `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, and `SPRING_DATASOURCE_PASSWORD` environment variables in your Web Service.
+
+#### Local Development
+The project still defaults to **H2 in-memory database** for local development. To use PostgreSQL locally, set the environment variables in your IDE or local shell.
+
+---
+
 This guide provides comprehensive, step-by-step instructions for deploying the **CodeVerse** application to production. 
 
 * 🍃 **Backend (Spring Boot)** is deployed to **[Render](https://render.com/)** using Docker.
